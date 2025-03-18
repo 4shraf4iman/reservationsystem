@@ -1,41 +1,109 @@
+# Reservation System
 
-Requires Installation of:
--Php and Composer
--Laragon or Xammp
--Nodejs
+This project is a **Reservation System** built with **Laravel** (backend) and **Vue.js** (frontend).
 
-#Setup Code: 
+## Prerequisites
+Before setting up the project, ensure you have the following installed:
 
-1- git clone into laragon WWW file or XAMMP file in local desktop file using CMD:
-"git clone https://github.com/4shraf4iman/reservationsystem.git"
-2-"cd reservationsystem"
-3- copy .env.example and rename to .env
-4- open .env file then you can see database name, username and password
-5- now open xampp or laragon, create new database with name from .env , username root with password none
+- **PHP** & **Composer**
+- **Laragon** or **XAMPP**
+- **Node.js & npm**
 
-#SETUP LARAVEL
+---
 
-1 - now go back to CMD in 'reservationsystem' file and run "composer intall" command
-2 - if any token required, use this composer config --global --auth github-oauth.github.com [token], and then run 'composer install'
-3 - after install package complete, run "php artisan migrate:fresh --seed" to seed database
-4 - run 'php artisan serve' and it shoudl work.
+## Installation & Setup
 
-#SETUP VueJS
-1- Now navigate to root folder for 'kidosys front end' inside reservationsystem folder
-2- Now copy file named '.end-example' and paste in same place and renamed to '.env'
-3- Now open CMD and run command 'npm install' inside 'kidosys front end' folder
-4- After success install, run 'npm run dev'.
+### 1. Clone the Repository
+Open **Command Prompt (CMD)** and run:
+```sh
+git clone https://github.com/4shraf4iman/reservationsystem.git
+```
+Navigate into the project folder:
+```sh
+cd reservationsystem
+```
 
-KEEP NOTE U NEED TO RUN 2 CMD WHICH IS FOR LARAVEL AND VUEJS
+### 2. Setup Environment Variables
+Copy the example environment file and rename it:
+```sh
+cp .env.example .env
+```
+Open the `.env` file and configure the **database name, username, and password**.
 
-PAGE AVAILBALE IN THIS PROJECT:
+### 3. Configure the Database
+- Open **XAMPP** or **Laragon**.
+- Create a new database with the **same name** as in `.env`.
+- Set the username as **root** and leave the password **empty**.
 
-Booking Page - http://localhost:5173/reserve
-Login Page for Admin - http://localhost:5173/
-Admin Reservation Page - http://localhost:5173/admin
+---
 
-Credential to Login:
-email : superadmin@kiddosys.com
-password : admin
+## Backend Setup (Laravel)
 
+Run the following commands inside the `reservationsystem` directory:
+
+1. Install dependencies:
+   ```sh
+   composer install
+   ```
+   If authentication is required, run:
+   ```sh
+   composer config --global --auth github-oauth.github.com [your-token]
+   composer install
+   ```
+
+2. Run migrations and seed the database:
+   ```sh
+   php artisan migrate:fresh --seed
+   ```
+
+3. Start the Laravel development server:
+   ```sh
+   php artisan serve
+   ```
+
+---
+
+## Frontend Setup (Vue.js)
+
+1. Navigate to the frontend folder:
+   ```sh
+   cd "kidosys front end"
+   ```
+
+2. Copy the environment file:
+   ```sh
+   cp .env-example .env
+   ```
+
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+4. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+---
+
+## Running the Project
+You need **two CMD instances** running:
+1. Laravel (`php artisan serve`)
+2. Vue.js (`npm run dev`)
+
+### Available Pages:
+- **Booking Page**: [http://localhost:5173/reserve](http://localhost:5173/reserve)
+- **Admin Login Page**: [http://localhost:5173/](http://localhost:5173/)
+- **Admin Reservation Page**: [http://localhost:5173/admin](http://localhost:5173/admin)
+
+### Admin Credentials:
+```
+Email: superadmin@kiddosys.com
+Password: admin
+```
+
+---
+
+### 🎉 Your Reservation System is Now Ready!
 
