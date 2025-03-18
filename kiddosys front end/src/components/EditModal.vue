@@ -45,8 +45,10 @@
                         <option v-for="year in 11" :key="year" :value="year + 1">{{ year + 1 }} years</option>
                         </select>
                         <select v-model.number="child.month" class="input-field" required>
-                            <option value="" disabled selected>Select Months</option>
-                            <option v-for="month in 12" :key="month" :value="month">{{ month }} months</option>
+                          <option value="" disabled selected>Select Months</option>
+                          <option v-for="month in 12" :key="month" :value="month" :disabled="child.age === 12 && month === 12">
+                            {{ month }} months
+                          </option>
                         </select>
                         <button v-if="registration.children.length > 1" @click="removeChild(index)" class="bg-red-500 text-white px-2 py-1 rounded-md">Remove</button>
                         </div>
@@ -79,9 +81,10 @@ import FormInput from '@/components/TextInput.vue';
 import TextArea from '@/components/TextArea.vue';
 import { computed, ref, watch, onMounted } from 'vue';
 import { useRegistrationStore } from '@/stores/manage-registration/registration';
-import axios from 'axios';
+import { defineProps, defineEmits } from 'vue';
 
 const registrationStore = useRegistrationStore();
+const emit = defineEmits();
 
 const props = defineProps({
   registration: Object,
@@ -117,24 +120,34 @@ const updateRegistration = async () => {
   formData.append('phone_number', props.registration.phone_number);
   formData.append('address', props.registration.address);
   formData.append('reservation_datetime', fullDatetime);
-  formData.append('children', JSON.stringify(props.registration.children));
   formData.append('accepted_terms', props.registration.accepted_terms);
+  props.registration.children.forEach((child, index) => {
+    formData.append(`children[${index}][age]`, child.age);
+    formData.append(`children[${index}][month]`, child.month);
+  });
 
   try {
-    const response = await axios.post(`/registrations/${props.registration.id}`, formData);
+    const response = await registrationStore.updateRegistration(props.registration.id, formData);
     console.log(response);
+    emit('close');
+
   } catch (error) {
     console.error(error);
   }
 };
 
+
 const addChild = () => {
-  props.registration.children.push({ years: null, months: null });
+  const newChild = { age: null, month: null };
+  const updatedChildren = [...props.registration.children, newChild];
+  registrationStore.updateChildren(props.registration.id, updatedChildren);
 };
 
 const removeChild = (index) => {
-  props.registration.children.splice(index, 1);
+  const updatedChildren = props.registration.children.filter((_, i) => i !== index);
+  registrationStore.updateChildren(props.registration.id, updatedChildren);
 };
+
 
 const openTermsModal = () => {
 };

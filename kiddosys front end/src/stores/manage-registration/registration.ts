@@ -24,6 +24,7 @@ export const useRegistrationStore = defineStore('registration', {
     error: null,
   }),
   actions: {
+    // Fetch all registrations
     async fetchRegistrations() {
       this.loading = true;
       this.error = null;
@@ -37,6 +38,7 @@ export const useRegistrationStore = defineStore('registration', {
       }
     },
 
+    // Fetch a specific registration by ID
     async fetchRegistrationById(id: string) {
       this.loading = true;
       this.error = null;
@@ -51,35 +53,38 @@ export const useRegistrationStore = defineStore('registration', {
       }
     },
 
+    // Fetch registration by customer phone number
     async fetchRegistrationByCustomerPhone(id: string) {
-        this.loading = true;
-        this.error = null;
-        try {
-          const response = await apiClient.get(`/api/registrations/phone/${id}`);
-          this.registrations = response.data; // Update the registrations property
-          return response.data;
-        } catch (error) {
-          this.error = error.message || 'An error occurred while fetching the registration';
-          throw this.error;
-        } finally {
-          this.loading = false;
-        }
-      },
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await apiClient.get(`/api/registrations/phone/${id}`);
+        this.registrations = response.data;
+        return response.data;
+      } catch (error) {
+        this.error = error.message || 'An error occurred while fetching the registration';
+        throw this.error;
+      } finally {
+        this.loading = false;
+      }
+    },
 
-      async fetchRegistrationByBookingId(id: string) {
-        this.loading = true;
-        this.error = null;
-        try {
-          const response = await apiClient.get(`/api/registrations/booking/${id}`);
-          return response.data;
-        } catch (error) {
-          this.error = error.message || 'An error occurred while fetching the registration';
-          throw this.error;
-        } finally {
-          this.loading = false;
-        }
-      },
+    // Fetch registration by booking ID
+    async fetchRegistrationByBookingId(id: string) {
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await apiClient.get(`/api/registrations/booking/${id}`);
+        return response.data;
+      } catch (error) {
+        this.error = error.message || 'An error occurred while fetching the registration';
+        throw this.error;
+      } finally {
+        this.loading = false;
+      }
+    },
 
+    // Create a new registration
     async createRegistration(registrationData: Registration) {
       this.loading = true;
       this.error = null;
@@ -95,6 +100,7 @@ export const useRegistrationStore = defineStore('registration', {
       }
     },
 
+    // Update a registration
     async updateRegistration(id: string, registrationData: Registration) {
       this.loading = true;
       this.error = null;
@@ -112,6 +118,7 @@ export const useRegistrationStore = defineStore('registration', {
       }
     },
 
+    // Delete a registration
     async deleteRegistration(id: string) {
       this.loading = true;
       this.error = null;
@@ -123,6 +130,14 @@ export const useRegistrationStore = defineStore('registration', {
         throw this.error;
       } finally {
         this.loading = false;
+      }
+    },
+
+    // Update the children array of a specific registration
+    updateChildren(id: string, updatedChildren: any[]) {
+      const registration = this.registrations.find(reg => reg.id === id);
+      if (registration) {
+        registration.children = updatedChildren;
       }
     },
   },

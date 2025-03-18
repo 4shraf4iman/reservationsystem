@@ -43,7 +43,16 @@
             {{ registration.address }}
           </td>
           <td class="px-6 py-4">
-            {{ registration.children.length }} children
+            <div>
+              <p>{{ registration.children.length }} children</p>
+              <ul>
+                <li v-for="(child, index) in registration.children" :key="index">
+                  <p><span class="text-red-500">Child {{ index + 1 }}</span>:</p>
+                  <p>Age: {{ child.age }} years</p>
+                  <p>Month: {{ child.month }} months</p>
+                </li>
+              </ul>
+            </div>
           </td>
           <td class="px-6 py-4">
             {{ new Date(registration.reservation_datetime).toLocaleString() }}
@@ -59,7 +68,7 @@
     </table>
     <div v-else-if="!isLoading" class="p-20 flex flex-col items-center justify-center ">
       <p class="text-lg text-center text-gray-500 dark:text-gray-400">No appointments/bookings found for {{ $route.params.searchTerm }}.</p>
-      <router-link to="/reserve" class="mt-4 py-4 px-6 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300">Create New Reservation</router-link>
+      <router-link to="/" class="mt-4 py-4 px-6 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300">Create New Reservation</router-link>
     </div>
     <div v-else class="w-full flex justify-center items-center ">
       <Spinner class="text-3xl" />
@@ -88,7 +97,7 @@ export default {
     const filterValue = ref('');
     const ids = ref(route.params.searchTerm);
     const isLoading = ref(false);
-
+    
     const fetchRegistrations = async () => {
       isLoading.value = true;
       try {

@@ -45,10 +45,13 @@
                     <option value="0">0 years</option>
                     <option v-for="year in 12" :key="year" :value="year">{{ year }} years</option>
                   </select>
-                  <select v-model.number="child.months" class="input-field" :required="child.years === 0">
+
+                  <select v-model.number="child.months" class="input-field" :required="child.years !== 0">
                     <option value="" disabled selected>Select Months</option>
                     <option v-if="child.years !== 0" value="0">0 months</option>
-                    <option v-for="month in 12" :key="month" :value="month">{{ month }} months</option>
+                    <option v-for="month in 12" :key="month" :value="month" :disabled="child.years === 12 && month === 12">
+                      {{ month }} months
+                    </option>
                   </select>
                 </div>
                 <button v-if="children.length > 1" @click="removeChild(index)" class="bg-red-500 text-white px-2 py-1 rounded-md">- Remove Child</button>

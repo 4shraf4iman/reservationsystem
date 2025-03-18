@@ -11,13 +11,13 @@ const routes = [
 
   //globalroute
   {
-    path: '/',
+    path: '/login',
     name: 'login',
     component: LoginView,
     meta: { requiresAuth: false },
   },
   {
-    path: '/reserve',
+    path: '/',
     name: 'reserve',
     component: UserView,
     meta: { requiresAuth: false },
