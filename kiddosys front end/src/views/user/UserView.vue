@@ -76,16 +76,22 @@
 
           <!-- Terms Modal -->
           <div v-if="showTermsModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-3xl">
               <h2 class="text-lg font-semibold text-gray-900">Terms and Conditions</h2>
               <ul class="mt-4 text-gray-600 list-disc list-inside">
                 <li>Reservation must be at least 6 hours ahead and within 30 days.</li>
                 <li>Maximum 4 children per reservation.</li>
                 <li>Children must be between 1 month and 12 years 11 months.</li>
               </ul>
-              <button @click="showTermsModal = false" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md">Close</button>
+              <button 
+                @click="showTermsModal = false" 
+                class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md float-right"
+              >
+                Agree
+              </button>
             </div>
           </div>
+
 
           <!-- Success Modal -->
           <div v-if="showSuccessModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
